@@ -1,4 +1,4 @@
-package learn.microservices.multiplicator.user;
+package learn.microservices.multiplicator.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -9,9 +9,9 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-public class User {
+public class Challenge {
 
-    private Long id;
-    private String alias;
+    private int factorA;
+    private int factorB;
 
 }

@@ -1,4 +1,4 @@
-package learn.microservices.multiplicator.challenge;
+package learn.microservices.multiplicator.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
