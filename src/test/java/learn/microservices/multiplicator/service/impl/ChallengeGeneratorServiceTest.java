@@ -28,9 +28,11 @@ public class ChallengeGeneratorServiceTest {
 
     @Test
     public void generatedRandomFactorIsBetweenExpectedLimits() {
+        // given
         given(random.nextInt(89)).willReturn(20, 30);
+        // when
         Challenge challenge = challengeGeneratorService.generateRandomChallenge();
-        // need to add 11 to generate random numbers from 11 to 99
+        // then - need to add 11 to generate random numbers from 11 to 99
         then(challenge).isEqualTo(new Challenge(31, 41));
     }
 
