@@ -45,7 +45,7 @@ public class ChallengeAttemptControllerTest {
         User user = new User(1L, "john_doe");
         long attemptId = 5L;
         ChallengeAttemptDto requestDto = new ChallengeAttemptDto(20, 30, user.getAlias(), 600);
-        ChallengeAttempt expectedResponse = new ChallengeAttempt(attemptId, user.getId(), 20, 30, 600, true);
+        ChallengeAttempt expectedResponse = new ChallengeAttempt(attemptId, user, 20, 30, 600, true);
         given(challengeService.verifyAttempt(eq(requestDto))).willReturn(expectedResponse);
 
         // when
@@ -63,7 +63,7 @@ public class ChallengeAttemptControllerTest {
     @Test
     void postInvalidResult() throws Exception {
         // given
-        ChallengeAttemptDto requestDto = new ChallengeAttemptDto(10, -1, "john_doe", 1);
+        ChallengeAttemptDto requestDto = new ChallengeAttemptDto(200, -1, "john_doe", 1);
 
         // when
         MockHttpServletResponse actualResponse = mvc.perform(

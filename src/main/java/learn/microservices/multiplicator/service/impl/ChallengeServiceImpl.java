@@ -15,7 +15,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         User user = new User(null, dto.getUserAlias());
         return new ChallengeAttempt(
                 null,
-                user.getId(),
+                user,
                 dto.getFactorA(),
                 dto.getFactorB(),
                 dto.getGuess(),
