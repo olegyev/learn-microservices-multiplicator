@@ -7,9 +7,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-/**
- * Coming from the client
- */
 @Value
 public class ChallengeAttemptDto {
 
@@ -19,7 +16,7 @@ public class ChallengeAttemptDto {
     @NotBlank
     String userAlias;
 
-    @Positive
+    @Positive(message = "Only positive number is allowed. Try again!")
     int guess;
 
 }
