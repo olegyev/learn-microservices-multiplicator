@@ -12,7 +12,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeAttempt verifyAttempt(final ChallengeAttemptDto dto) {
         boolean isCorrect = dto.getGuess() == (dto.getFactorA() * dto.getFactorB());
-        User user = new User(null, dto.getUserAlias());
+        User user = new User(dto.getUserAlias());
         return new ChallengeAttempt(
                 null,
                 user,

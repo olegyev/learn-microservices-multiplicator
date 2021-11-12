@@ -1,17 +1,20 @@
 package learn.microservices.multiplicator.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Document("users")
 public class User {
 
-    private Long id;
+    @Id
+    private String id;
+
+    @NonNull
     private String alias;
 
 }
