@@ -9,6 +9,6 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User, String> {
 
     @Query("{alias: '?0'}")
-    public List<User> findAllByAlias(String alias);
+    List<User> findAllByAlias(String alias);
 
 }
