@@ -1,21 +1,32 @@
 package learn.microservices.multiplicator.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Document("challenge_attempts")
 public class ChallengeAttempt {
 
-    private Long id;
+    @Id
+    private String id;
+
+    @NonNull
     private User user;
+
+    @NonNull
     private int factorA;
+
+    @NonNull
     private int factorB;
+
+    @NonNull
     private int resultAttempt;
+
+    @NonNull
     private boolean isCorrect;
 
 }
