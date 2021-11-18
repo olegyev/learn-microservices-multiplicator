@@ -1,5 +1,6 @@
 package learn.microservices.multiplicator.service.impl;
 
+import learn.microservices.multiplicator.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.entity.User;
 import learn.microservices.multiplicator.repository.UserRepository;
 import learn.microservices.multiplicator.service.UserService;
@@ -18,6 +19,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         return repository.save(user);
+    }
+
+    @Override
+    public User create(ChallengeAttemptDto dto) {
+        User user;
+        List<User> existingUsers = findByAlias(dto.getUserAlias());
+        if (existingUsers != null && !existingUsers.isEmpty()) {
+            user = existingUsers.get(0);
+        } else {
+            user = create(new User(dto.getUserAlias()));
+        }
+        return user;
     }
 
     @Override
