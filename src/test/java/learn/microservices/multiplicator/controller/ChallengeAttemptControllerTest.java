@@ -7,6 +7,7 @@ import learn.microservices.multiplicator.service.ChallengeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -41,10 +42,13 @@ public class ChallengeAttemptControllerTest {
     @Autowired
     private JacksonTester<ChallengeAttempt> jsonResultAttempt;
 
+    @Value("${test.user.alias}")
+    private String userAlias;
+
     @Test
     void postValidResult() throws Exception {
         // given
-        User user = new User("john_doe_testing_12121212");
+        User user = new User(userAlias);
         ChallengeAttemptDto requestDto = new ChallengeAttemptDto(20, 30, user.getAlias(), 600);
         ChallengeAttempt expectedResponse = new ChallengeAttempt(user, 20, 30, 600, true, Calendar.getInstance().getTimeInMillis());
         given(challengeService.verifyAttempt(eq(requestDto))).willReturn(expectedResponse);

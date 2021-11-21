@@ -2,10 +2,11 @@ package learn.microservices.multiplicator.service.impl;
 
 import learn.microservices.multiplicator.entity.User;
 import learn.microservices.multiplicator.service.UserService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -21,9 +22,12 @@ public class UserServiceTest {
 
     private User createdUser;
 
+    @Value("${test.user.alias}")
+    private String userAlias;
+
     @BeforeEach
     public void setUp() {
-        User user = new User("john_doe_testing_12121212");
+        User user = new User(userAlias);
         createdUser = userService.create(user);
     }
 

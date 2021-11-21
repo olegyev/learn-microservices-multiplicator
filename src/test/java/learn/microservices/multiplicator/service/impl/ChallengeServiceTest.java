@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -27,11 +28,14 @@ public class ChallengeServiceTest {
     @Autowired
     private UserService userService;
 
+    @Value("${test.user.alias}")
+    private String userAlias;
+
     private final List<ChallengeAttempt> createdChallengeAttempts = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
-        User user = userService.create(new User("john_doe_testing_12121212"));
+        User user = userService.create(new User(userAlias));
 
         ChallengeAttempt preparedFirst = initChallengeAttempt(user);
 
