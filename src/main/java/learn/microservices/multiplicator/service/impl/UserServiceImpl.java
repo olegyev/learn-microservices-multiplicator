@@ -23,14 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(ChallengeAttemptDto dto) {
-        User user;
-        List<User> existingUsers = findByAlias(dto.getUserAlias());
-        if (existingUsers != null && !existingUsers.isEmpty()) {
-            user = existingUsers.get(0);
-        } else {
-            user = create(new User(dto.getUserAlias()));
-        }
-        return user;
+        Optional<User> existingUser = findByAlias(dto.getUserAlias());
+        return existingUser.orElseGet(() -> create(new User(dto.getUserAlias())));
     }
 
     @Override
@@ -44,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByAlias(String alias) {
+    public Optional<User> findByAlias(String alias) {
         return repository.findAllByAlias(alias);
     }
 

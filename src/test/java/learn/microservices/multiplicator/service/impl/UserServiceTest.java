@@ -23,7 +23,7 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setUp() {
-        User user = new User("john_doe_test_exclusive");
+        User user = new User("john_doe_testing_12121212");
         createdUser = userService.create(user);
     }
 
@@ -51,9 +51,9 @@ public class UserServiceTest {
         // given
         String alias = createdUser.getAlias();
         // when
-        List<User> foundUsers = userService.findByAlias(alias);
+        Optional<User> foundUser = userService.findByAlias(alias);
         // then
-        then(foundUsers.size()).isGreaterThanOrEqualTo(1);
+        then(foundUser.get()).isEqualTo(createdUser);
     }
 
     @AfterEach

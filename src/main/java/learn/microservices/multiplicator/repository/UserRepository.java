@@ -4,11 +4,11 @@ import learn.microservices.multiplicator.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
     @Query("{alias: '?0'}")
-    List<User> findAllByAlias(String alias);
+    Optional<User> findAllByAlias(String alias);
 
 }

@@ -16,7 +16,7 @@ public interface UserService {
 
     Optional<User> findById(String id);
 
-    List<User> findByAlias(String alias);
+    Optional<User> findByAlias(String alias);
 
     void delete(User user);
 
