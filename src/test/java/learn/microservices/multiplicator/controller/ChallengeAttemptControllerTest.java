@@ -17,6 +17,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Calendar;
+
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -42,9 +44,9 @@ public class ChallengeAttemptControllerTest {
     @Test
     void postValidResult() throws Exception {
         // given
-        User user = new User("john_doe");
+        User user = new User("john_doe_testing_12121212");
         ChallengeAttemptDto requestDto = new ChallengeAttemptDto(20, 30, user.getAlias(), 600);
-        ChallengeAttempt expectedResponse = new ChallengeAttempt(user, 20, 30, 600, true);
+        ChallengeAttempt expectedResponse = new ChallengeAttempt(user, 20, 30, 600, true, Calendar.getInstance().getTimeInMillis());
         given(challengeService.verifyAttempt(eq(requestDto))).willReturn(expectedResponse);
 
         // when
@@ -62,7 +64,7 @@ public class ChallengeAttemptControllerTest {
     @Test
     void postInvalidResult() throws Exception {
         // given
-        ChallengeAttemptDto requestDto = new ChallengeAttemptDto(200, -1, "john_doe", 1);
+        ChallengeAttemptDto requestDto = new ChallengeAttemptDto(200, -1, "john_doe_testing_12121212", 1);
 
         // when
         MockHttpServletResponse actualResponse = mvc.perform(

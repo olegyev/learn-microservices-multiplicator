@@ -9,4 +9,6 @@ public interface ChallengeAttemptRepository extends MongoRepository<ChallengeAtt
 
     List<ChallengeAttempt> findByUserId(String userId);
 
+    List<ChallengeAttempt> findAllByUserAliasOrderByTimestampDesc(String userAlias);
+
 }

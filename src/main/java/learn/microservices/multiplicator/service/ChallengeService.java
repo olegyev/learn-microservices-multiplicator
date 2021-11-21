@@ -22,6 +22,8 @@ public interface ChallengeService {
 
     List<ChallengeAttempt> findByUserId(String userId);
 
+    List<ChallengeAttempt> findByUserAlias(String userAlias);
+
     void delete(ChallengeAttempt user);
 
 }

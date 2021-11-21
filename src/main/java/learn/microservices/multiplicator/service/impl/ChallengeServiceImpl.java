@@ -9,6 +9,7 @@ import learn.microservices.multiplicator.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,8 @@ public class ChallengeServiceImpl implements ChallengeService {
                 dto.getFactorA(),
                 dto.getFactorB(),
                 dto.getGuess(),
-                isCorrect
+                isCorrect,
+                Calendar.getInstance().getTimeInMillis()
         );
     }
 
@@ -50,6 +52,11 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public List<ChallengeAttempt> findByUserId(String userId) {
         return repository.findByUserId(userId);
+    }
+
+    @Override
+    public List<ChallengeAttempt> findByUserAlias(String userAlias) {
+        return repository.findAllByUserAliasOrderByTimestampDesc(userAlias);
     }
 
     @Override

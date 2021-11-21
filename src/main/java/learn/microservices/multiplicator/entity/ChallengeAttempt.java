@@ -29,4 +29,7 @@ public class ChallengeAttempt {
     @NonNull
     private boolean isCorrect;
 
+    @NonNull
+    private long timestamp;
+
 }
