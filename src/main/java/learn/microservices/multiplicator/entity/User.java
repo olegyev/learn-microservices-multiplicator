@@ -16,7 +16,7 @@ public class User {
     private String id;
 
     @NonNull
-    @Indexed
+    @Indexed(unique = true)
     private String alias;
 
 }
