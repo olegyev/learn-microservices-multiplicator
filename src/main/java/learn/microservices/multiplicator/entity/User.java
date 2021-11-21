@@ -2,6 +2,7 @@ package learn.microservices.multiplicator.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -15,6 +16,7 @@ public class User {
     private String id;
 
     @NonNull
+    @Indexed
     private String alias;
 
 }
