@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByAlias(String alias) {
-        return repository.findAllByAlias(alias);
+        return repository.findByAlias(alias);
     }
 
     @Override
