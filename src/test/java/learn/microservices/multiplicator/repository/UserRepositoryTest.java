@@ -1,7 +1,6 @@
-package learn.microservices.multiplicator;
+package learn.microservices.multiplicator.repository;
 
 import learn.microservices.multiplicator.entity.User;
-import learn.microservices.multiplicator.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
