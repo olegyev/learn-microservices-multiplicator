@@ -4,9 +4,9 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@ToString
-@EqualsAndHashCode
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
 @Document("challenge_attempts")
 public class ChallengeAttempt {

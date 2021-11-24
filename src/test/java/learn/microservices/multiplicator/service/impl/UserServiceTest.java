@@ -68,7 +68,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void whenFindAllUsers_thenReturnedArraySizeIsCorrect() {
+    public void whenFindAllUsers_thenFoundSizeIsCorrect() {
         // given
         given(userRepository.findAll()).willReturn(List.of(USER_1, USER_2));
         // when
@@ -78,7 +78,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void whenFindUserById_thenReturnsCorrectEntity() {
+    public void whenFindUserById_thenFoundIsCorrect() {
         // given
         given(userRepository.findById(anyString())).willReturn(Optional.ofNullable(USER_1));
         // when
@@ -88,7 +88,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void whenFindUserByAlias_thenReturnsCorrectEntity() {
+    public void whenFindUserByAlias_thenFoundIsCorrect() {
         // given
         given(userRepository.findByAlias(anyString())).willReturn(Optional.ofNullable(USER_1));
         // when

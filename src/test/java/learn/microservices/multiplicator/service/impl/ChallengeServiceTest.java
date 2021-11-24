@@ -3,63 +3,65 @@ package learn.microservices.multiplicator.service.impl;
 import learn.microservices.multiplicator.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.entity.ChallengeAttempt;
 import learn.microservices.multiplicator.entity.User;
+import learn.microservices.multiplicator.repository.ChallengeAttemptRepository;
 import learn.microservices.multiplicator.service.ChallengeService;
 import learn.microservices.multiplicator.service.UserService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ChallengeServiceTest {
 
-    @Autowired
     private ChallengeService challengeService;
 
-    @Autowired
+    @Mock
+    private ChallengeAttemptRepository challengeAttemptRepository;
+
+    @Mock
     private UserService userService;
 
-    @Value("${test.user.alias}")
-    private String userAlias;
-
-    private final List<ChallengeAttempt> createdChallengeAttempts = new ArrayList<>();
+    private final User USER = new User("111", "test_1");
+    private final ChallengeAttempt CORRECT_CHALLENGE_ATTEMPT = new ChallengeAttempt(
+            "111",
+            USER,
+            20,
+            30,
+            600,
+            true,
+            System.currentTimeMillis() + 10
+    );
+    private final ChallengeAttempt WRONG_CHALLENGE_ATTEMPT = new ChallengeAttempt(
+            "222",
+            USER,
+            20,
+            30,
+            500,
+            false,
+            System.currentTimeMillis()
+    );
 
     @BeforeEach
     public void setUp() {
-        User user = userService.create(new User(userAlias));
-
-        ChallengeAttempt preparedFirst = initChallengeAttempt(user);
-
-        try {
-            // to create challenge attempts with time gap to test fetching order by timestamp
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            // ignore
-        }
-
-        ChallengeAttempt preparedSecond = initChallengeAttempt(user);
-
-        ChallengeAttempt createdFirst = challengeService.create(preparedFirst);
-        ChallengeAttempt createdSecond = challengeService.create(preparedSecond);
-
-        createdChallengeAttempts.add(createdFirst);
-        createdChallengeAttempts.add(createdSecond);
+        challengeService = new ChallengeServiceImpl(challengeAttemptRepository, userService);
     }
 
     @Test
     public void whenCorrectChallengeAttempt_thenIsCorrectTrue() {
         // given
-        String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
-        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, userAlias, 600);
+        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, USER.getAlias(), 600);
+        given(userService.create((ChallengeAttemptDto) any())).willReturn(USER);
         // when
         ChallengeAttempt result = challengeService.verifyAttempt(dto);
         // then
@@ -69,8 +71,8 @@ public class ChallengeServiceTest {
     @Test
     public void whenWrongChallengeAttempt_thenIsCorrectFalse() {
         // given
-        String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
-        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, userAlias, 500);
+        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, USER.getAlias(), 500);
+        given(userService.create((ChallengeAttemptDto) any())).willReturn(USER);
         // when
         ChallengeAttempt result = challengeService.verifyAttempt(dto);
         // then
@@ -78,73 +80,67 @@ public class ChallengeServiceTest {
     }
 
     @Test
+    public void whenCreateChallengeAttempt_thenReturnsCorrectEntity() {
+        // given
+        given(challengeAttemptRepository.save(any())).will(returnsFirstArg());
+        // when
+        ChallengeAttempt createdChallengeAttempt = challengeService.create(CORRECT_CHALLENGE_ATTEMPT);
+        // then
+        then(createdChallengeAttempt).isEqualTo(CORRECT_CHALLENGE_ATTEMPT);
+    }
+
+    @Test
     public void whenFindAll_thenFoundSizeIsCorrect() {
         // given
-        int numberOfTestingChallengeAttempts = createdChallengeAttempts.size();
+        given(challengeAttemptRepository.findAll()).willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
         List<ChallengeAttempt> foundChallengeAttempts = challengeService.findAll();
         // then
-        then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(numberOfTestingChallengeAttempts);
+        then(foundChallengeAttempts.size()).isEqualTo(2);
     }
 
     @Test
-    public void whenFindById_thenCorrectChallengeAttemptReturned() {
+    public void whenFindById_thenFoundIsCorrect() {
         // given
-        ChallengeAttempt firstTestChallengeAttempt = createdChallengeAttempts.get(0);
-        String id = firstTestChallengeAttempt.getId();
+        given(challengeAttemptRepository.findById(anyString())).willReturn(Optional.of(CORRECT_CHALLENGE_ATTEMPT));
         // when
-        Optional<ChallengeAttempt> foundChallengeAttempt = challengeService.findById(id);
+        Optional<ChallengeAttempt> foundChallengeAttempt = challengeService.findById(CORRECT_CHALLENGE_ATTEMPT.getId());
         // then
-        then(foundChallengeAttempt.get()).isEqualTo(firstTestChallengeAttempt);
+        then(foundChallengeAttempt.get()).isEqualTo(CORRECT_CHALLENGE_ATTEMPT);
     }
 
     @Test
-    public void whenFindByUserId_thenCorrectChallengeAttemptsSize() {
+    public void whenFindByUserId_thenFoundSizeIsCorrect() {
         // given
-        String userId = createdChallengeAttempts.get(0).getUser().getId();
+        given(challengeAttemptRepository.findByUserId(anyString())).willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserId(userId);
+        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserId(USER.getId());
         // then
-        then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(2);
+        then(foundChallengeAttempts.size()).isEqualTo(2);
     }
 
     @Test
-    public void whenFindByUserAlias_thenCorrectChallengeAttemptsSize() {
+    public void whenFindByUserAlias_thenFoundSizeIsCorrect() {
         // given
-        String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
+        given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString()))
+                .willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(userAlias);
+        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(USER.getAlias());
         // then
-        then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(2);
+        then(foundChallengeAttempts.size()).isEqualTo(2);
     }
 
     @Test
     public void whenFindByUserAlias_thenTimestampOrderDesc() {
         // given
-        String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
+        given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString()))
+                .willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(userAlias);
+        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(USER.getAlias());
         // then
         ChallengeAttempt firstFoundChallengeAttempt = foundChallengeAttempts.get(0);
         ChallengeAttempt secondFoundChallengeAttempt = foundChallengeAttempts.get(1);
         then(firstFoundChallengeAttempt.getTimestamp()).isGreaterThan(secondFoundChallengeAttempt.getTimestamp());
-    }
-
-    @AfterEach
-    public void deleteObject() {
-        userService.delete(createdChallengeAttempts.get(0).getUser());
-        createdChallengeAttempts.forEach(attempt -> challengeService.delete(attempt));
-    }
-
-    private ChallengeAttempt initChallengeAttempt(User user) {
-        return new ChallengeAttempt(
-                user,
-                20,
-                30,
-                600,
-                true,
-                Calendar.getInstance().getTimeInMillis()
-        );
     }
 
 }
