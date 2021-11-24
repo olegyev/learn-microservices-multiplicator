@@ -31,7 +31,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenFindAllUsers_thenFoundUsersListSizeIsCorrect() {
+    public void whenFindAllUsers_thenFoundSizeIsCorrect() {
         // when
         List<User> foundUsers = userRepository.findAll();
         // then
@@ -39,7 +39,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenFindUserById_thenFoundUserIsCorrect() {
+    public void whenFindUserById_thenFoundIsCorrect() {
         // given
         String id = createdUser.getId();
         // when
@@ -49,7 +49,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenFindUserByAlias_thenFoundUserIsCorrect() {
+    public void whenFindUserByAlias_thenFoundIsCorrect() {
         // given
         String alias = createdUser.getAlias();
         // when
