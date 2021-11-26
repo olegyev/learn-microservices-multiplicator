@@ -2,6 +2,7 @@ package learn.microservices.multiplicator.service;
 
 import learn.microservices.multiplicator.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.entity.ChallengeAttempt;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public interface ChallengeService {
 
     List<ChallengeAttempt> findByUserId(String userId);
 
-    List<ChallengeAttempt> findByUserAlias(String userAlias);
+    List<ChallengeAttempt> findByUserAlias(String userAlias, Pageable pageable);
 
     void delete(ChallengeAttempt user);
 

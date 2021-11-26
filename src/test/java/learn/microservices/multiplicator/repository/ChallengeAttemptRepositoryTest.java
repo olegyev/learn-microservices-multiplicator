@@ -8,12 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.mockito.ArgumentMatchers.same;
 
 @SpringBootTest
 public class ChallengeAttemptRepositoryTest {
@@ -85,9 +87,10 @@ public class ChallengeAttemptRepositoryTest {
     @Test
     public void whenFindByUserAlias_thenFoundSizeIsCorrect() {
         // given
+        PageRequest pageRequest = PageRequest.of(0, 2);
         String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias);
+        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, same(pageRequest));
         // then
         then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(2);
     }
@@ -95,9 +98,10 @@ public class ChallengeAttemptRepositoryTest {
     @Test
     public void whenFindByUserAlias_thenTimestampOrderDesc() {
         // given
+        PageRequest pageRequest = PageRequest.of(0, 2);
         String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias);
+        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, same(pageRequest));
         // then
         ChallengeAttempt firstFoundChallengeAttempt = foundChallengeAttempts.get(0);
         ChallengeAttempt secondFoundChallengeAttempt = foundChallengeAttempts.get(1);

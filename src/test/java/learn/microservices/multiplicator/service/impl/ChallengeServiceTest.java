@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -146,10 +146,11 @@ public class ChallengeServiceTest {
     @Test
     public void whenFindByUserAlias_thenFoundSizeIsCorrect() {
         // given
-        given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString()))
+        PageRequest pageRequest = PageRequest.of(0, 2);
+        given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString(), same(pageRequest)))
                 .willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(USER.getAlias());
+        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(USER.getAlias(), pageRequest);
         // then
         then(foundChallengeAttempts.size()).isEqualTo(2);
     }
@@ -157,10 +158,11 @@ public class ChallengeServiceTest {
     @Test
     public void whenFindByUserAlias_thenTimestampOrderDesc() {
         // given
-        given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString()))
+        PageRequest pageRequest = PageRequest.of(0, 2);
+        given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString(), same(pageRequest)))
                 .willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(USER.getAlias());
+        List<ChallengeAttempt> foundChallengeAttempts = challengeService.findByUserAlias(USER.getAlias(), pageRequest);
         // then
         ChallengeAttempt firstFoundChallengeAttempt = foundChallengeAttempts.get(0);
         ChallengeAttempt secondFoundChallengeAttempt = foundChallengeAttempts.get(1);

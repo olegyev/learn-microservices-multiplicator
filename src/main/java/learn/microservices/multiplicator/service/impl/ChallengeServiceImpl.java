@@ -7,6 +7,7 @@ import learn.microservices.multiplicator.repository.ChallengeAttemptRepository;
 import learn.microservices.multiplicator.service.ChallengeService;
 import learn.microservices.multiplicator.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -59,8 +60,8 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     @Override
-    public List<ChallengeAttempt> findByUserAlias(String userAlias) {
-        return repository.findAllByUserAliasOrderByTimestampDesc(userAlias);
+    public List<ChallengeAttempt> findByUserAlias(String userAlias, Pageable pageable) {
+        return repository.findAllByUserAliasOrderByTimestampDesc(userAlias, pageable);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package learn.microservices.multiplicator.repository;
 
 import learn.microservices.multiplicator.entity.ChallengeAttempt;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
@@ -9,6 +10,6 @@ public interface ChallengeAttemptRepository extends MongoRepository<ChallengeAtt
 
     List<ChallengeAttempt> findByUserId(String userId);
 
-    List<ChallengeAttempt> findAllByUserAliasOrderByTimestampDesc(String userAlias);
+    List<ChallengeAttempt> findAllByUserAliasOrderByTimestampDesc(String userAlias, Pageable pageable);
 
 }
