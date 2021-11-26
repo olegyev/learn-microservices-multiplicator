@@ -1,6 +1,5 @@
 package learn.microservices.multiplicator.service.impl;
 
-import learn.microservices.multiplicator.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.entity.User;
 import learn.microservices.multiplicator.repository.UserRepository;
 import learn.microservices.multiplicator.service.UserService;
@@ -41,28 +40,6 @@ public class UserServiceTest {
         given(userRepository.save(any())).will(returnsFirstArg());
         // when
         User createdUser = userService.create(USER_1);
-        // then
-        then(createdUser).isEqualTo(USER_1);
-    }
-
-    @Test
-    public void whenCreateUserFromChallengeAttemptDtoWithNoExistingAlias_thenCreatesEntity() {
-        // given
-        User tmpUser = new User("333", "non_existing");
-        given(userRepository.findByAlias(anyString())).willReturn(Optional.empty());
-        given(userRepository.save(any())).willReturn(tmpUser);
-        // when
-        User createdUser = userService.create(new ChallengeAttemptDto(20, 30, tmpUser.getAlias(), 600));
-        // then
-        then(createdUser).isEqualTo(tmpUser);
-    }
-
-    @Test
-    public void whenCreateUserFromChallengeAttemptDtoWithExistingAlias_thenReturnsCorrectEntity() {
-        // given
-        given(userRepository.findByAlias(anyString())).willReturn(Optional.ofNullable(USER_1));
-        // when
-        User createdUser = userService.create(new ChallengeAttemptDto(20, 30, USER_1.getAlias(), 600));
         // then
         then(createdUser).isEqualTo(USER_1);
     }

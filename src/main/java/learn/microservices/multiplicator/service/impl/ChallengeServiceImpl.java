@@ -23,8 +23,11 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeAttempt verifyAttempt(final ChallengeAttemptDto dto) {
         boolean isCorrect = dto.getGuess() == (dto.getFactorA() * dto.getFactorB());
-        User user = userService.create(dto);
-        return new ChallengeAttempt(
+        User user = userService.findByAlias(dto.getUserAlias())
+                .orElseGet(() ->
+                        userService.create(new User(dto.getUserAlias()))
+                );
+        ChallengeAttempt checkedAttempt = new ChallengeAttempt(
                 user,
                 dto.getFactorA(),
                 dto.getFactorB(),
@@ -32,6 +35,7 @@ public class ChallengeServiceImpl implements ChallengeService {
                 isCorrect,
                 Calendar.getInstance().getTimeInMillis()
         );
+        return create(checkedAttempt);
     }
 
     @Override

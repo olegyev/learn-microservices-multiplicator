@@ -23,9 +23,7 @@ public class ChallengeAttemptController {
 
     @PostMapping
     ResponseEntity<ChallengeAttempt> postResult(@RequestBody @Valid ChallengeAttemptDto dto) {
-        ChallengeAttempt verifiedAttempt = challengeService.verifyAttempt(dto);
-        challengeService.create(verifiedAttempt);
-        return ResponseEntity.ok(verifiedAttempt);
+        return ResponseEntity.ok(challengeService.verifyAttempt(dto));
     }
 
 }
