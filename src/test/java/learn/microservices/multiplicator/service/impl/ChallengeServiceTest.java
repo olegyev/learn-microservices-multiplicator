@@ -20,6 +20,7 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,9 +34,9 @@ public class ChallengeServiceTest {
     @Mock
     private UserService userService;
 
-    private final User USER = new User("111", "test_1");
+    private final User USER = new User("1", "test_1");
     private final ChallengeAttempt CORRECT_CHALLENGE_ATTEMPT = new ChallengeAttempt(
-            "111",
+            "1",
             USER,
             20,
             30,
@@ -44,7 +45,7 @@ public class ChallengeServiceTest {
             System.currentTimeMillis() + 10
     );
     private final ChallengeAttempt WRONG_CHALLENGE_ATTEMPT = new ChallengeAttempt(
-            "222",
+            "2",
             USER,
             20,
             30,
@@ -61,28 +62,44 @@ public class ChallengeServiceTest {
     @Test
     public void whenCorrectChallengeAttempt_thenIsCorrectTrue() {
         // given
-        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, "john_doe", 600);
+        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, "test_1", 600);
         given(userService.create(any())).will(returnsFirstArg());
         given(challengeAttemptRepository.save(any())).will(returnsFirstArg());
         // when
         ChallengeAttempt result = challengeService.verifyAttempt(dto);
         // then
         then(result.isCorrect()).isTrue();
-        verify(userService).create(new User("john_doe"));
+        verify(userService).create(new User("test_1"));
         verify(challengeAttemptRepository).save(result);
     }
 
     @Test
     public void whenWrongChallengeAttempt_thenIsCorrectFalse() {
         // given
-        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, "john_doe", 500);
+        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, "test_1", 500);
         given(userService.create(any())).will(returnsFirstArg());
         given(challengeAttemptRepository.save(any())).will(returnsFirstArg());
         // when
         ChallengeAttempt result = challengeService.verifyAttempt(dto);
         // then
         then(result.isCorrect()).isFalse();
-        verify(userService).create(new User("john_doe"));
+        verify(userService).create(new User("test_1"));
+        verify(challengeAttemptRepository).save(result);
+    }
+
+    @Test
+    public void whenVerifyChallengeAttemptAndUserByAliasExists_thenUserWillBeNeverCreated() {
+        // given
+        User existingUser = USER;
+        given(userService.findByAlias(USER.getAlias())).willReturn(Optional.of(existingUser));
+        given(challengeAttemptRepository.save(any())).will(returnsFirstArg());
+        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, USER.getAlias(), 500);
+        // when
+        ChallengeAttempt result = challengeService.verifyAttempt(dto);
+        // then
+        then(result.isCorrect()).isFalse();
+        then(result.getUser()).isEqualTo(existingUser);
+        verify(userService, never()).create(any());
         verify(challengeAttemptRepository).save(result);
     }
 
