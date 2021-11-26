@@ -75,12 +75,15 @@ public class ChallengeServiceTest {
     @Test
     public void whenWrongChallengeAttempt_thenIsCorrectFalse() {
         // given
-        /*ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, USER.getAlias(), 500);
-        given(userService.create((ChallengeAttemptDto) any())).willReturn(USER);
+        ChallengeAttemptDto dto = new ChallengeAttemptDto(20, 30, "john_doe", 500);
+        given(userService.create(any())).will(returnsFirstArg());
+        given(challengeAttemptRepository.save(any())).will(returnsFirstArg());
         // when
         ChallengeAttempt result = challengeService.verifyAttempt(dto);
         // then
-        then(result.isCorrect()).isFalse();*/
+        then(result.isCorrect()).isFalse();
+        verify(userService).create(new User("john_doe"));
+        verify(challengeAttemptRepository).save(result);
     }
 
     @Test
