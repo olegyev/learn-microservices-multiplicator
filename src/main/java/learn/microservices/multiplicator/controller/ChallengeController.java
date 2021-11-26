@@ -17,7 +17,7 @@ public class ChallengeController {
     private final ChallengeGeneratorService challengeGeneratorService;
 
     @GetMapping("/random")
-    Challenge getRandomChallenge() {
+    public Challenge getRandomChallenge() {
         Challenge challenge = challengeGeneratorService.generateRandomChallenge();
         log.info("New challenge generated: {}", challenge);
         return challenge;
