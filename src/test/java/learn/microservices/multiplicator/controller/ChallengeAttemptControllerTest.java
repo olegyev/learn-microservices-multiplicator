@@ -114,4 +114,18 @@ public class ChallengeAttemptControllerTest {
         then(actualResponse.getContentAsString()).isEqualTo(jsonResultListAttempt.write(List.of(expectedResponseOne, expectedResponseTwo)).getJson());
     }
 
+    @Test
+    public void whenGetAllByNoAlias_thenStatusIsBadRequest() throws Exception {
+        // given
+        // no required parameter 'alias' is sent
+
+        // when
+        MockHttpServletResponse actualResponse = mvc.perform(
+                get("/attempts")
+        ).andReturn().getResponse();
+
+        // then
+        then(actualResponse.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
 }
