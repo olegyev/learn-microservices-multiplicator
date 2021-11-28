@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -146,7 +147,7 @@ public class ChallengeServiceTest {
     @Test
     public void whenFindByUserAlias_thenFoundSizeIsCorrect() {
         // given
-        PageRequest pageRequest = PageRequest.of(0, 2);
+        PageRequest pageRequest = PageRequest.of(0, 2, Sort.by("timestamp").descending());
         given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString(), same(pageRequest)))
                 .willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
@@ -158,7 +159,7 @@ public class ChallengeServiceTest {
     @Test
     public void whenFindByUserAlias_thenTimestampOrderDesc() {
         // given
-        PageRequest pageRequest = PageRequest.of(0, 2);
+        PageRequest pageRequest = PageRequest.of(0, 2, Sort.by("timestamp").descending());
         given(challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(anyString(), same(pageRequest)))
                 .willReturn(List.of(CORRECT_CHALLENGE_ATTEMPT, WRONG_CHALLENGE_ATTEMPT));
         // when
