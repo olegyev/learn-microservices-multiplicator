@@ -1,2 +1,2 @@
-# learn-microservices-multiplicator
-Simple training project to learn microservices
+# Training Multiplicator project
+Simple training project to learn microservices.
