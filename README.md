@@ -1,16 +1,20 @@
-# Training Multiplicator project - core
+# Training microservices project - core
 Simple training project to learn microservices. <br>
-This repository is for the core User and Challenge services. <br><br>
-<b>Source of knowledge:</b><br>
-https://github.com/Book-Microservices-v2 <br><br>
-<b>Related repos:</b>
-<ol>
+This repository is for the core User and Challenge services.
+
+## Source of knowledge:
+https://github.com/Book-Microservices-v2
+
+## Related repos:
+<ul>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend' target='_blank'>Frontend</a></li>
-</ol>
-<b>Idea:</b><br>
+</ul>
+
+## Idea:
 A user solves multiplication challenges with factors between 11 and 99. For example, 30x60. <br>
-Results and leaderboard are displayed. <br><br>
-<b>Technologies:</b><br>
+Results and leaderboard are displayed.
+
+## Technologies:
 <ul>
   <li>Java 14</li>
   <li>React</li>
