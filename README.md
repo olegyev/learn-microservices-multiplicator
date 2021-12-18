@@ -7,7 +7,8 @@ https://github.com/Book-Microservices-v2
 
 ## Related repos:
 <ul>
-  <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend' target='_blank'>Frontend</a></li>
+  <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>Frontend service</a></li>
+  <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>Gamification service</a></li>
 </ul>
 
 ## Idea:
