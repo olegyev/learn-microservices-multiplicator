@@ -110,7 +110,7 @@ public class ChallengeAttemptRepositoryTest {
     }
 
     @AfterEach
-    public void deleteObject() {
+    public void tearDown() {
         userRepository.delete(createdChallengeAttempts.get(0).getUser());
         createdChallengeAttempts.forEach(attempt -> challengeAttemptRepository.delete(attempt));
     }

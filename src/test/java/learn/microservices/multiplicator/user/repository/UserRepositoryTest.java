@@ -1,7 +1,6 @@
 package learn.microservices.multiplicator.user.repository;
 
 import learn.microservices.multiplicator.user.entity.User;
-import learn.microservices.multiplicator.user.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,7 +59,7 @@ public class UserRepositoryTest {
     }
 
     @AfterEach
-    public void deleteObject() {
+    public void tearDown() {
         userRepository.delete(createdUser);
     }
 
