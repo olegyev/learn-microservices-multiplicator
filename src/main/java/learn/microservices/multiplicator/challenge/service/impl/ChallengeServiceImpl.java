@@ -2,9 +2,10 @@ package learn.microservices.multiplicator.challenge.service.impl;
 
 import learn.microservices.multiplicator.challenge.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.challenge.entity.ChallengeAttempt;
-import learn.microservices.multiplicator.challenge.service.ChallengeService;
-import learn.microservices.multiplicator.user.entity.User;
 import learn.microservices.multiplicator.challenge.repository.ChallengeAttemptRepository;
+import learn.microservices.multiplicator.challenge.service.ChallengeService;
+import learn.microservices.multiplicator.serviceclient.GamificationServiceClient;
+import learn.microservices.multiplicator.user.entity.User;
 import learn.microservices.multiplicator.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     private final ChallengeAttemptRepository repository;
     private final UserService userService;
+    private final GamificationServiceClient gameClient;
 
     @Override
     public ChallengeAttempt verifyAttempt(final ChallengeAttemptDto dto) {
@@ -36,7 +38,14 @@ public class ChallengeServiceImpl implements ChallengeService {
                 isCorrect,
                 Calendar.getInstance().getTimeInMillis()
         );
-        return create(checkedAttempt);
+
+        // Stores the attempt in DB
+        ChallengeAttempt createdAttempt = create(checkedAttempt);
+
+        // Sends the attempt to the gamification service
+        boolean success = gameClient.sendAttempt(createdAttempt);
+
+        return createdAttempt;
     }
 
     @Override
