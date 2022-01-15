@@ -11,6 +11,8 @@ public interface UserService {
 
     List<User> findAll();
 
+    List<User> findAllByIdIn(List<String> idList);
+
     Optional<User> findById(String id);
 
     Optional<User> findByAlias(String alias);

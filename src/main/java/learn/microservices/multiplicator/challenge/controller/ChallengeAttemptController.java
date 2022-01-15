@@ -4,7 +4,6 @@ import learn.microservices.multiplicator.challenge.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.challenge.entity.ChallengeAttempt;
 import learn.microservices.multiplicator.challenge.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -17,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/attempts")
 @RequiredArgsConstructor
-@Slf4j
 public class ChallengeAttemptController {
 
     private final ChallengeService challengeService;

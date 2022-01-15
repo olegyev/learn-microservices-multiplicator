@@ -3,7 +3,6 @@ package learn.microservices.multiplicator.user.service.impl;
 import learn.microservices.multiplicator.user.entity.User;
 import learn.microservices.multiplicator.user.repository.UserRepository;
 import learn.microservices.multiplicator.user.service.UserService;
-import learn.microservices.multiplicator.user.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,6 +72,19 @@ public class UserServiceTest {
         Optional<User> foundUser = userService.findByAlias(USER_1.getAlias());
         // then
         then(foundUser.get()).isEqualTo(USER_1);
+    }
+
+    @Test
+    public void whenFindAllByIdsInList_thenFoundListOfUsersIsCorrect() {
+        // given
+        List<String> idList = List.of(USER_1.getId(), USER_2.getId());
+        given(userRepository.findAllByIdIn(idList)).willReturn(List.of(USER_1, USER_2));
+        // when
+        List<User> foundUsers = userService.findAllByIdIn(idList);
+        // then
+        then(foundUsers.size()).isEqualTo(2);
+        then(foundUsers.get(0)).isEqualTo(USER_1);
+        then(foundUsers.get(1)).isEqualTo(USER_2);
     }
 
 }
