@@ -3,7 +3,7 @@ package learn.microservices.multiplicator.challenge.dto;
 import lombok.Value;
 
 @Value
-public class ChallengeSolvedDto {
+public class ChallengeSolvedEvent {
 
     String attemptId;
     boolean correct;

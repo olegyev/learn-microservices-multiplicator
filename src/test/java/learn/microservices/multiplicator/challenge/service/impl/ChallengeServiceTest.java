@@ -2,9 +2,9 @@ package learn.microservices.multiplicator.challenge.service.impl;
 
 import learn.microservices.multiplicator.challenge.dto.ChallengeAttemptDto;
 import learn.microservices.multiplicator.challenge.entity.ChallengeAttempt;
+import learn.microservices.multiplicator.challenge.publisher.ChallengeSolvedEventPublisher;
 import learn.microservices.multiplicator.challenge.repository.ChallengeAttemptRepository;
 import learn.microservices.multiplicator.challenge.service.ChallengeService;
-import learn.microservices.multiplicator.serviceclient.GamificationServiceClient;
 import learn.microservices.multiplicator.user.entity.User;
 import learn.microservices.multiplicator.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +37,7 @@ public class ChallengeServiceTest {
     private UserService userService;
 
     @Mock
-    private GamificationServiceClient gameClient;
+    private ChallengeSolvedEventPublisher challengeSolvedEventPublisher;
 
     private final User USER = new User("1", "test_1");
     private final ChallengeAttempt CORRECT_CHALLENGE_ATTEMPT = new ChallengeAttempt(
@@ -61,7 +61,7 @@ public class ChallengeServiceTest {
 
     @BeforeEach
     public void setUp() {
-        challengeService = new ChallengeServiceImpl(challengeAttemptRepository, userService, gameClient);
+        challengeService = new ChallengeServiceImpl(challengeAttemptRepository, userService, challengeSolvedEventPublisher);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ChallengeServiceTest {
         then(result.isCorrect()).isTrue();
         verify(userService).create(new User("test_1"));
         verify(challengeAttemptRepository).save(result);
-        verify(gameClient).sendAttempt(result);
+        verify(challengeSolvedEventPublisher).sendEvent(result);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ChallengeServiceTest {
         then(result.isCorrect()).isFalse();
         verify(userService).create(new User("test_1"));
         verify(challengeAttemptRepository).save(result);
-        verify(gameClient).sendAttempt(result);
+        verify(challengeSolvedEventPublisher).sendEvent(result);
     }
 
     @Test
@@ -108,7 +108,7 @@ public class ChallengeServiceTest {
         then(result.getUser()).isEqualTo(existingUser);
         verify(userService, never()).create(any());
         verify(challengeAttemptRepository).save(result);
-        verify(gameClient).sendAttempt(result);
+        verify(challengeSolvedEventPublisher).sendEvent(result);
     }
 
     @Test
