@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmqpConfiguration {
 
+    // configure exchange
     @Bean
     public TopicExchange challengesTopicExchange(@Value("{amqp.exchange.attempts}") final String exchangeName) {
         return ExchangeBuilder
@@ -21,6 +22,7 @@ public class AmqpConfiguration {
                 .build();
     }
 
+    // replace default Java serializer by the JSON serializer
     @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
