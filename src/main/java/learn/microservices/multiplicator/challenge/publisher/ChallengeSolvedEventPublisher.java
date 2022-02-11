@@ -13,7 +13,7 @@ public class ChallengeSolvedEventPublisher {
     private final String challengesTopicExchangeName;
 
     public ChallengeSolvedEventPublisher(final AmqpTemplate amqpTemplate,
-                                         @Value("{amqp.exchange.attempts}") final String challengesTopicExchangeName) {
+                                         @Value("${amqp.exchange.attempts}") final String challengesTopicExchangeName) {
         this.amqpTemplate = amqpTemplate;
         this.challengesTopicExchangeName = challengesTopicExchangeName;
     }

@@ -15,7 +15,7 @@ public class AmqpConfiguration {
 
     // configure exchange
     @Bean
-    public TopicExchange challengesTopicExchange(@Value("{amqp.exchange.attempts}") final String exchangeName) {
+    public TopicExchange challengesTopicExchange(@Value("${amqp.exchange.attempts}") final String exchangeName) {
         return ExchangeBuilder
                 .topicExchange(exchangeName)
                 .durable(true)
