@@ -27,9 +27,11 @@ public class ChallengeSolvedEventPublisher {
         String routingKey = "attempt." + (event.isCorrect() ? "correct" : "wrong");
 
         amqpTemplate.convertAndSend(
-                challengesTopicExchangeName,
-                routingKey,
-                event
+                challengesTopicExchangeName
+                , routingKey
+                , event
+                // uncomment to remove queued messages on broker's restart
+                // , m -> { m.getMessageProperties().setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT); return m; }
         );
     }
 
