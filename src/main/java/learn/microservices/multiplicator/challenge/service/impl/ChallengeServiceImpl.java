@@ -10,6 +10,7 @@ import learn.microservices.multiplicator.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final UserService userService;
     private final ChallengeSolvedEventPublisher challengeSolvedEventPublisher;
 
+    @Transactional
     @Override
     public ChallengeAttempt verifyAttempt(final ChallengeAttemptDto dto) {
         boolean isCorrect = dto.getGuess() == (dto.getFactorA() * dto.getFactorB());
