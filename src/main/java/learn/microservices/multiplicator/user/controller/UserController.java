@@ -18,9 +18,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/{idList}")
-    public ResponseEntity<List<User>> getUsersByIdList(@PathVariable final List<String> idList) {
-        return ResponseEntity.ok(userService.findAllByIdIn(idList));
+    @GetMapping("/{ids}")
+    public ResponseEntity<List<User>> getUsersByIds(@PathVariable final List<String> ids) {
+        return ResponseEntity.ok(userService.findAllByIdIn(ids));
     }
 
 }

@@ -36,7 +36,7 @@ class UserControllerTest {
     private JacksonTester<List<User>> jsonResponse;
 
     @Test
-    void whenGetByCorrectIdList_thenReturnsCorrectResults() throws Exception {
+    void whenGetByCorrectIds_thenReturnsCorrectResults() throws Exception {
         // given
         User user1 = new User("1", "first_user");
         User user2 = new User("2", "second_user");
@@ -44,7 +44,7 @@ class UserControllerTest {
 
         // when
         MockHttpServletResponse actualResponse = mvc.perform(
-                get("/users/{idList}", "1, 2")
+                get("/users/{ids}", "1, 2")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 

@@ -30,7 +30,7 @@ public class ChallengeSolvedEventPublisher {
                 challengesTopicExchangeName
                 , routingKey
                 , event
-                // uncomment to remove queued messages on broker's restart
+                // Uncomment to remove queued messages on broker's restart.
                 // , m -> { m.getMessageProperties().setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT); return m; }
         );
     }

@@ -12,6 +12,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Query("{alias: '?0'}")
     Optional<User> findByAlias(String alias);
 
-    List<User> findAllByIdIn(List<String> idList);
+    List<User> findAllByIdIn(List<String> ids);
 
 }

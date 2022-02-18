@@ -34,6 +34,7 @@ public class UserRepositoryTest {
     public void whenFindAllUsers_thenFoundSizeIsCorrect() {
         // when
         List<User> foundUsers = userRepository.findAll();
+
         // then
         then(foundUsers.size()).isGreaterThanOrEqualTo(1);
     }
@@ -42,8 +43,10 @@ public class UserRepositoryTest {
     public void whenFindUserById_thenFoundIsCorrect() {
         // given
         String id = user1.getId();
+
         // when
         Optional<User> foundUser = userRepository.findById(id);
+
         // then
         then(foundUser.get()).isEqualTo(user1);
     }
@@ -52,18 +55,22 @@ public class UserRepositoryTest {
     public void whenFindUserByAlias_thenFoundIsCorrect() {
         // given
         String alias = user1.getAlias();
+
         // when
         Optional<User> foundUser = userRepository.findByAlias(alias);
+
         // then
         then(foundUser.get()).isEqualTo(user1);
     }
 
     @Test
-    public void whenAllByIdsInList_thenFoundListOfUsersIsCorrect() {
+    public void whenFindAllUsersByIds_thenFoundUsersAreCorrect() {
         // given
-        List<String> idList = List.of(user1.getId(), user2.getId());
+        List<String> ids = List.of(user1.getId(), user2.getId());
+
         // when
-        List<User> foundUsers = userRepository.findAllByIdIn(idList);
+        List<User> foundUsers = userRepository.findAllByIdIn(ids);
+
         // then
         then(foundUsers.size()).isEqualTo(2);
         then(foundUsers.get(0)).isEqualTo(user1);

@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllByIdIn(List<String> idList) {
-        return repository.findAllByIdIn(idList);
+    public List<User> findAllByIdIn(List<String> ids) {
+        return repository.findAllByIdIn(ids);
     }
 
     @Override

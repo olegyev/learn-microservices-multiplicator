@@ -2,7 +2,6 @@ package learn.microservices.multiplicator.challenge.service.impl;
 
 import learn.microservices.multiplicator.challenge.entity.Challenge;
 import learn.microservices.multiplicator.challenge.service.ChallengeGeneratorService;
-import learn.microservices.multiplicator.challenge.service.impl.ChallengeGeneratorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,8 +30,10 @@ public class ChallengeGeneratorServiceTest {
     public void generatedRandomFactorIsBetweenExpectedLimits() {
         // given
         given(random.nextInt(89)).willReturn(20, 30);
+
         // when
         Challenge challenge = challengeGeneratorService.generateRandomChallenge();
+
         // then - need to add 11 to generate random numbers from 11 to 99
         then(challenge).isEqualTo(new Challenge(31, 41));
     }

@@ -24,7 +24,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final UserService userService;
     private final ChallengeSolvedEventPublisher challengeSolvedEventPublisher;
 
-    @Transactional
+    @Transactional // rollback DB query if something goes wrong (e.g. RabbitMQ broker is unavailable)
     @Override
     public ChallengeAttempt verifyAttempt(final ChallengeAttemptDto dto) {
         boolean isCorrect = dto.getGuess() == (dto.getFactorA() * dto.getFactorB());
@@ -41,10 +41,12 @@ public class ChallengeServiceImpl implements ChallengeService {
                 Calendar.getInstance().getTimeInMillis()
         );
 
-        // Stores the attempt in DB
+        // Stores the attempt in DB.
         ChallengeAttempt createdAttempt = create(checkedAttempt);
 
-        // Publishes an event for the potentially interested subscribers
+        // Publishes an event for the potentially interested subscribers.
+        // We don’t need transactionality over the message broker’s operation, since this is the last method's operation which ->
+        // message will not be sent anyway in case of any exception within this method.
         challengeSolvedEventPublisher.sendEvent(createdAttempt);
 
         return createdAttempt;

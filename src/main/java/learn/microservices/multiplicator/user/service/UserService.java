@@ -11,7 +11,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    List<User> findAllByIdIn(List<String> idList);
+    List<User> findAllByIdIn(List<String> ids);
 
     Optional<User> findById(String id);
 

@@ -11,7 +11,8 @@ public interface ChallengeService {
 
     /**
      * Verifies correctness of the user's guess.
-     * @return the resulting ChallengeAttempt object
+     *
+     * @return the resulting ChallengeAttempt object.
      */
     ChallengeAttempt verifyAttempt(ChallengeAttemptDto resultAttempt);
 

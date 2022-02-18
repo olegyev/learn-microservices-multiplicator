@@ -27,19 +27,16 @@ public class ChallengeAttemptRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Value("${test.user.alias}")
-    private String userAlias;
-
     private final List<ChallengeAttempt> createdChallengeAttempts = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
-        User user = userRepository.save(new User(userAlias));
+        User user = userRepository.save(new User("user_testing_12121212"));
 
         ChallengeAttempt preparedFirst = initChallengeAttempt(user);
 
         try {
-            // to create challenge attempts with time gap to test fetching order by timestamp
+            // To create challenge attempts with time gap to test fetching order by timestamp.
             Thread.sleep(100);
         } catch (InterruptedException e) {
             // ignore
@@ -58,8 +55,10 @@ public class ChallengeAttemptRepositoryTest {
     public void whenFindAll_thenFoundSizeIsCorrect() {
         // given
         int numberOfTestingChallengeAttempts = createdChallengeAttempts.size();
+
         // when
         List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAll();
+
         // then
         then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(numberOfTestingChallengeAttempts);
     }
@@ -69,8 +68,10 @@ public class ChallengeAttemptRepositoryTest {
         // given
         ChallengeAttempt firstTestChallengeAttempt = createdChallengeAttempts.get(0);
         String id = firstTestChallengeAttempt.getId();
+
         // when
         Optional<ChallengeAttempt> foundChallengeAttempt = challengeAttemptRepository.findById(id);
+
         // then
         then(foundChallengeAttempt.get()).isEqualTo(firstTestChallengeAttempt);
     }
@@ -79,8 +80,10 @@ public class ChallengeAttemptRepositoryTest {
     public void whenFindByUserId_thenFoundSizeIsCorrect() {
         // given
         String userId = createdChallengeAttempts.get(0).getUser().getId();
+
         // when
         List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findByUserId(userId);
+
         // then
         then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(2);
     }
@@ -90,8 +93,10 @@ public class ChallengeAttemptRepositoryTest {
         // given
         PageRequest pageRequest = PageRequest.of(0, 2);
         String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
+
         // when
         List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, same(pageRequest));
+
         // then
         then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(2);
     }
@@ -101,8 +106,10 @@ public class ChallengeAttemptRepositoryTest {
         // given
         PageRequest pageRequest = PageRequest.of(0, 2);
         String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
+
         // when
         List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, same(pageRequest));
+
         // then
         ChallengeAttempt firstFoundChallengeAttempt = foundChallengeAttempts.get(0);
         ChallengeAttempt secondFoundChallengeAttempt = foundChallengeAttempts.get(1);

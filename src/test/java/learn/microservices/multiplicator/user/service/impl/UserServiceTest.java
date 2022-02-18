@@ -38,8 +38,10 @@ public class UserServiceTest {
     public void whenCreateUser_thenReturnsCorrectEntity() {
         // given
         given(userRepository.save(any())).will(returnsFirstArg());
+
         // when
         User createdUser = userService.create(USER_1);
+
         // then
         then(createdUser).isEqualTo(USER_1);
     }
@@ -48,8 +50,10 @@ public class UserServiceTest {
     public void whenFindAllUsers_thenFoundSizeIsCorrect() {
         // given
         given(userRepository.findAll()).willReturn(List.of(USER_1, USER_2));
+
         // when
         List<User> foundUsers = userService.findAll();
+
         // then
         then(foundUsers.size()).isEqualTo(2);
     }
@@ -58,8 +62,10 @@ public class UserServiceTest {
     public void whenFindUserById_thenFoundIsCorrect() {
         // given
         given(userRepository.findById(anyString())).willReturn(Optional.ofNullable(USER_1));
+
         // when
         Optional<User> foundUser = userService.findById(USER_1.getId());
+
         // then
         then(foundUser.get()).isEqualTo(USER_1);
     }
@@ -68,19 +74,23 @@ public class UserServiceTest {
     public void whenFindUserByAlias_thenFoundIsCorrect() {
         // given
         given(userRepository.findByAlias(anyString())).willReturn(Optional.ofNullable(USER_1));
+
         // when
         Optional<User> foundUser = userService.findByAlias(USER_1.getAlias());
+
         // then
         then(foundUser.get()).isEqualTo(USER_1);
     }
 
     @Test
-    public void whenFindAllByIdsInList_thenFoundListOfUsersIsCorrect() {
+    public void whenFindAllByIds_thenFoundUsersAreCorrect() {
         // given
-        List<String> idList = List.of(USER_1.getId(), USER_2.getId());
-        given(userRepository.findAllByIdIn(idList)).willReturn(List.of(USER_1, USER_2));
+        List<String> ids = List.of(USER_1.getId(), USER_2.getId());
+        given(userRepository.findAllByIdIn(ids)).willReturn(List.of(USER_1, USER_2));
+
         // when
-        List<User> foundUsers = userService.findAllByIdIn(idList);
+        List<User> foundUsers = userService.findAllByIdIn(ids);
+
         // then
         then(foundUsers.size()).isEqualTo(2);
         then(foundUsers.get(0)).isEqualTo(USER_1);

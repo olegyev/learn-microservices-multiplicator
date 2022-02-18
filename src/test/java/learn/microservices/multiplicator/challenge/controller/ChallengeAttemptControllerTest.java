@@ -48,15 +48,12 @@ public class ChallengeAttemptControllerTest {
     private JacksonTester<ChallengeAttempt> jsonResultAttempt;
 
     @Autowired
-    private JacksonTester<List<ChallengeAttempt>> jsonResultListAttempt;
-
-    @Value("${test.user.alias}")
-    private String userAlias;
+    private JacksonTester<List<ChallengeAttempt>> jsonResultMultipleAttempts;
 
     @Test
     public void whenPostValidResult_thenStatusIsOk() throws Exception {
         // given
-        User user = new User(userAlias);
+        User user = new User("user_testing_12121212");
         ChallengeAttemptDto requestDto = new ChallengeAttemptDto(20, 30, user.getAlias(), 600);
         ChallengeAttempt expectedResponse = new ChallengeAttempt(user, 20, 30, 600, true, Calendar.getInstance().getTimeInMillis());
         given(challengeService.verifyAttempt(eq(requestDto))).willReturn(expectedResponse);
@@ -92,7 +89,7 @@ public class ChallengeAttemptControllerTest {
     @Test
     public void whenGetAllByCorrectAlias_thenStatusIsOk() throws Exception {
         // given
-        User user = new User("1", userAlias);
+        User user = new User("1", "user_testing_12121212");
         ChallengeAttempt expectedResponseOne = new ChallengeAttempt("1", user, 20, 30, 600, true, Calendar.getInstance().getTimeInMillis());
         ChallengeAttempt expectedResponseTwo = new ChallengeAttempt("2", user, 20, 30, 600, true, Calendar.getInstance().getTimeInMillis());
         PageRequest pageRequest = PageRequest.of(0, 2, Sort.by("timestamp").descending());
@@ -103,7 +100,7 @@ public class ChallengeAttemptControllerTest {
         MockHttpServletResponse actualResponse = mvc.perform(
                 get("/attempts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("alias", userAlias)
+                        .param("alias", "user_testing_12121212")
                         .param("page", String.valueOf(0))
                         .param("size", String.valueOf(2))
                         .param("sort", "timestamp,desc")
@@ -111,13 +108,13 @@ public class ChallengeAttemptControllerTest {
 
         // then
         then(actualResponse.getStatus()).isEqualTo(HttpStatus.OK.value());
-        then(actualResponse.getContentAsString()).isEqualTo(jsonResultListAttempt.write(List.of(expectedResponseOne, expectedResponseTwo)).getJson());
+        then(actualResponse.getContentAsString()).isEqualTo(jsonResultMultipleAttempts.write(List.of(expectedResponseOne, expectedResponseTwo)).getJson());
     }
 
     @Test
     public void whenGetAllByNoAlias_thenStatusIsBadRequest() throws Exception {
         // given
-        // no required parameter 'alias' is sent
+        // No required parameter 'alias' is sent.
 
         // when
         MockHttpServletResponse actualResponse = mvc.perform(
