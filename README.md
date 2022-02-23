@@ -9,6 +9,7 @@ https://github.com/Book-Microservices-v2
 <ul>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>Frontend service</a></li>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>Gamification service</a></li>
+  <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gateway'>Gateway service</a></li>
 </ul>
 
 ## Idea:
