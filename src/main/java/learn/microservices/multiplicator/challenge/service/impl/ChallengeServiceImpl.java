@@ -8,6 +8,7 @@ import learn.microservices.multiplicator.challenge.service.ChallengeService;
 import learn.microservices.multiplicator.user.entity.User;
 import learn.microservices.multiplicator.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ChallengeServiceImpl implements ChallengeService {
 
     private final ChallengeAttemptRepository repository;
@@ -48,6 +50,8 @@ public class ChallengeServiceImpl implements ChallengeService {
         // We don’t need transactionality over the message broker’s operation, since this is the last method's operation which ->
         // message will not be sent anyway in case of any exception within this method.
         challengeSolvedEventPublisher.sendEvent(createdAttempt);
+
+        log.info("Attempt stored: {}", createdAttempt);
 
         return createdAttempt;
     }

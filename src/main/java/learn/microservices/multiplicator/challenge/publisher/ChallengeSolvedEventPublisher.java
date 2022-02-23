@@ -2,11 +2,13 @@ package learn.microservices.multiplicator.challenge.publisher;
 
 import learn.microservices.multiplicator.challenge.dto.ChallengeSolvedEvent;
 import learn.microservices.multiplicator.challenge.entity.ChallengeAttempt;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class ChallengeSolvedEventPublisher {
 
     private final AmqpTemplate amqpTemplate;
@@ -25,6 +27,8 @@ public class ChallengeSolvedEventPublisher {
         // 'attempt.correct'
         // 'attempt.wrong'
         String routingKey = "attempt." + (event.isCorrect() ? "correct" : "wrong");
+
+        log.info("Sending event to {} by routing key {}: {}", challengesTopicExchangeName, routingKey, event);
 
         amqpTemplate.convertAndSend(
                 challengesTopicExchangeName
