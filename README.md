@@ -19,8 +19,9 @@ Results and leaderboard are displayed.
 ## Technologies:
 <ul>
   <li>Java 14</li>
-  <li>React</li>
+  <li>React.js</li>
   <li>Spring Boot 2</li>
+  <li>Spring Cloud</li>
   <li>Lombok</li>
   <li>MongoDB</li>
   <li>JUnit 5</li>
