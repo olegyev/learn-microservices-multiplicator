@@ -7,9 +7,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.same;
 
 @SpringBootTest
+@TestPropertySource("classpath:application-test.properties")
 public class ChallengeAttemptRepositoryTest {
 
     @Autowired
@@ -31,7 +32,7 @@ public class ChallengeAttemptRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        User user = userRepository.save(new User("user_testing_12121212"));
+        User user = userRepository.save(new User("test_1"));
 
         ChallengeAttempt preparedFirst = initChallengeAttempt(user);
 

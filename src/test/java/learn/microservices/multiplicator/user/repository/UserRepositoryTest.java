@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest
+@TestPropertySource("classpath:application-test.properties")
 public class UserRepositoryTest {
 
     @Autowired
@@ -23,10 +25,10 @@ public class UserRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        User user = new User("test_user_111111");
+        User user = new User("test_1");
         user1 = userRepository.save(user);
 
-        user = new User("test_user_222222");
+        user = new User("test_2");
         user2 = userRepository.save(user);
     }
 
