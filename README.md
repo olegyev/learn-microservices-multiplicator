@@ -38,7 +38,7 @@ Results and leaderboard are displayed.
     <li>Enable RabbitMQ GUI manager using this command:<br>
         <code>$ rabbitmq-plugins enable rabbitmq_management</code><br>
         Will be available via <code>http://localhsot:15672</code><br>
-        If needed, RabbitMQ server can be run manually from within the RabbitMQ <code>sbin</code> command prompt (run as administrator): <code>rabbitmq-server start</code></li>
+        If needed, RabbitMQ server can be run manually from within the RabbitMQ <code>sbin</code> command prompt (run as administrator): <code>$ rabbitmq-server start</code></li>
     <li>Install Consul by HashiCorp as a Service Registry - see <a href="https://learn.hashicorp.com/tutorials/consul/get-started-install">here</a>.</li>
     <li>To run Consul in dev mode, use the following command: <code>$ consul agent -node=learnmicro -dev</code><br>
         If port is occupied on Windows, use the following commands:<br>
@@ -46,8 +46,8 @@ Results and leaderboard are displayed.
         <code>$ taskkill /PID \PID\ /F</code></li>
     <li>Consul GUI is available via <code>http://localhost:8500</code></li>
     <li>To run the new microservice's instance use the following command from within the microservice's directory:<br>
-        <code>./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=\PORT\"</code></li>
+        <code>$ ./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=\PORT\"</code></li>
     <li>To run front-end, install <code>Node.js</code> and <code>npm</code> - see <a href="https://nodejs.org/en/download/">here</a>.</li>
     <li>To run front-end in the dev mode, use the following command from within the front-end application's directory:<br>
-        <code>npm start</code></li>
+        <code>$ npm start</code></li>
 </ol>
