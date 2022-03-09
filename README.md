@@ -28,3 +28,25 @@ Results and leaderboard are displayed.
   <li>Mockito</li>
   <li>AssertJ</li>
 </ul>
+
+## To boot in dev mode:
+<ol>
+    <li>Install JDK 14.</li>
+    <li>Install MongoDB - see <a href="https://docs.mongodb.com/manual/administration/install-community/">here</a>.</li>
+    <li>Create MongoDB cluster which supports sessions (transactions) - see <a href="https://stackoverflow.com/a/62729445">here</a>.</li>
+    <li>Install RabbitMQ server - see <a href="https://www.rabbitmq.com/download.html">here</a>.</li>
+    <li>Enable RabbitMQ GUI manager using this command:<br>
+        <code>$ rabbitmq-plugins enable rabbitmq_management</code><br>
+        Will be available via <code>http://localhsot:15672</code></li>
+    <li>Install Consul by HashiCorp as a Service Registry - see <a href="https://learn.hashicorp.com/tutorials/consul/get-started-install">here</a>.</li>
+    <li>To start Consul in dev mode, use the following command: <code>$ consul agent -node=learnmicro -dev</code><br>
+        If port is occupied on Windows, use the following commands:<br>
+        <code>$ netstat -ano | findstr :\PORT\</code><br>
+        <code>$ taskkill /PID \PID\ /F</code></li>
+    <li>Consul GUI is available via <code>http://localhost:8500</code></li>
+    <li>To start the new microservice's instance use the following command from within the microservice's directory:<br>
+        <code>./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=\PORT\"</code></li>
+    <li>To start front-end, install <code>Node.js</code> and <code>npm</code> - see <a href="https://nodejs.org/en/download/">here</a>.</li>
+    <li>To start front-end in the dev mode, use the following command from within the front-end application's directory:<br>
+        <code>npm start</code></li>
+</ol>
