@@ -27,6 +27,8 @@ Results and leaderboard are displayed.
   <li>JUnit 5</li>
   <li>Mockito</li>
   <li>AssertJ</li>
+  <li>RabbitMQ</li>
+  <li>Consul (service registry, health checks, load balancing, centralized configuration)</li>
 </ul>
 
 ## To boot in dev mode:
