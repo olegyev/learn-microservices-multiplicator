@@ -46,7 +46,8 @@ Results and leaderboard are displayed.
         If port is occupied on Windows, use the following commands:<br>
         <code>$ netstat -ano | findstr :\PORT\</code><br>
         <code>$ taskkill /PID \PID\ /F</code></li>
-    <li>Consul GUI is available via <code>http://localhost:8500</code></li>
+    <li>Consul GUI is available via <code>http://localhost:8500</code><br>
+        NOTE! While adding YAML properties to the Consul KV using the Consul GUI, use 4 spaces instead of tab for indentation.</li>
     <li>To run the new microservice's instance use the following command from within the microservice's directory:<br>
         <code>$ ./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=\PORT\"</code></li>
     <li>To run front-end, install <code>Node.js</code> and <code>npm</code> - see <a href="https://nodejs.org/en/download/">here</a>.</li>
