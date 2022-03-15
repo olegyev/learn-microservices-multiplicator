@@ -48,7 +48,7 @@ Results and leaderboard are displayed.
         <code>$ taskkill /PID \PID\ /F</code></li>
     <li>Consul GUI is available via <code>http://localhost:8500</code><br>
         NOTE! While adding YAML properties to the Consul KV using the Consul GUI, use 4 spaces instead of tab for indentation.<br>
-        NOTE! While adding {application},{profile} property using the Consul GUI, need to literally name folder using separator (comma ',' by default; to change separator, specify <code>spring.cloud.consul.config.profile-separator</code> within [bootstrap.properties](./src/main/resources/bootstrap.properties)).<br>
+        NOTE! While adding {application},{profile} property using the Consul GUI, need to literally name folder using separator (comma ',' by default; to change separator, specify <code>spring.cloud.consul.config.profile-separator</code> within bootstrap.properties).<br>
         Example: config/defaults,production/application.yml; config/multiplicator,rabbitmq-production/application.yml<br>
         To run application specifying active profiles, use the following command: <code>$ ./mvnw spring-boot:run '-Dspring-boot.run.arguments="--spring.profiles.active=rabbitmq-production,production"'</code>
 </li>
