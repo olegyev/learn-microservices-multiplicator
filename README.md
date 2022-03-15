@@ -50,8 +50,7 @@ Results and leaderboard are displayed.
         NOTE! While adding YAML properties to the Consul KV using the Consul GUI, use 4 spaces instead of tab for indentation.<br>
         NOTE! While adding {application},{profile} property using the Consul GUI, need to literally name folder using separator (comma ',' by default; to change separator, specify <code>spring.cloud.consul.config.profile-separator</code> within bootstrap.properties).<br>
         Example: config/defaults,production/application.yml; config/multiplicator,rabbitmq-production/application.yml<br>
-        To run application specifying active profiles, use the following command: <code>$ ./mvnw spring-boot:run '-Dspring-boot.run.arguments="--spring.profiles.active=rabbitmq-production,production"'</code>
-</li>
+        To run application specifying active profiles, use the following command: <code>$ ./mvnw spring-boot:run '-Dspring-boot.run.arguments="--spring.profiles.active=rabbitmq-production,production"'</code></li>
     <li>To run the new microservice's instance use the following command from within the microservice's directory:<br>
         <code>$ ./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=\PORT\"</code></li>
     <li>To run front-end, install <code>Node.js</code> and <code>npm</code> - see <a href="https://nodejs.org/en/download/">here</a>.</li>
