@@ -10,6 +10,7 @@ https://github.com/Book-Microservices-v2
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>Frontend service</a></li>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>Gamification service</a></li>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gateway'>Gateway service</a></li>
+  <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-logs'>Centralized logging service</a></li>
 </ul>
 
 ## Idea:
@@ -23,12 +24,13 @@ Results and leaderboard are displayed.
   <li>Spring Boot 2</li>
   <li>Spring Cloud</li>
   <li>Lombok</li>
+  <li>Logback</li>
   <li>MongoDB</li>
   <li>JUnit 5</li>
   <li>Mockito</li>
   <li>AssertJ</li>
   <li>RabbitMQ</li>
-  <li>Consul (service registry, health checks, load balancing, centralized configuration)</li>
+  <li>Consul (service registry, health checks, load balancing, centralized configuration/logging)</li>
 </ul>
 
 ## To boot in dev mode:
