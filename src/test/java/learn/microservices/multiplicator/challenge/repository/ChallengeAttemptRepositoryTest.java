@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.ArgumentMatchers.same;
 
 @SpringBootTest
 @TestPropertySource("classpath:application-test.properties")
@@ -96,8 +95,7 @@ public class ChallengeAttemptRepositoryTest {
         String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
 
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, same(pageRequest));
-
+        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, pageRequest);
         // then
         then(foundChallengeAttempts.size()).isGreaterThanOrEqualTo(2);
     }
@@ -109,7 +107,7 @@ public class ChallengeAttemptRepositoryTest {
         String userAlias = createdChallengeAttempts.get(0).getUser().getAlias();
 
         // when
-        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, same(pageRequest));
+        List<ChallengeAttempt> foundChallengeAttempts = challengeAttemptRepository.findAllByUserAliasOrderByTimestampDesc(userAlias, pageRequest);
 
         // then
         ChallengeAttempt firstFoundChallengeAttempt = foundChallengeAttempts.get(0);
