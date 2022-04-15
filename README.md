@@ -11,6 +11,7 @@ https://github.com/Book-Microservices-v2
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>Gamification service</a></li>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-gateway'>Gateway service</a></li>
   <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-logs'>Centralized logging service</a></li>
+  <li><a href='https://github.com/olegyev/learn-microservices-multiplicator-docker'>Dockerization</a></li>
 </ul>
 
 ## Idea:
@@ -31,6 +32,8 @@ Results and leaderboard are displayed.
   <li>AssertJ</li>
   <li>RabbitMQ</li>
   <li>Consul (service registry, health checks, load balancing, centralized configuration/logging)</li>
+  <li>Docker</li>
+  <li>Docker Compose</li>
 </ul>
 
 ## To boot in dev mode:
@@ -58,4 +61,34 @@ Results and leaderboard are displayed.
     <li>To run front-end, install <code>Node.js</code> and <code>npm</code> - see <a href="https://nodejs.org/en/download/">here</a>.</li>
     <li>To run front-end in the dev mode, use the following command from within the front-end application's directory:<br>
         <code>$ npm start</code></li>
+</ol>
+
+## To boot as local containers using Docker:
+<ol>
+    <li>Install Docker - see <a href="https://docs.docker.com/get-docker/">here</a>.</li>
+    <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator'>multiplicator service</a>:<br>
+        NOTE! This command can be used for all the services mentioned below:<br>
+        <code>$ ./mvnw clean package</code><br>
+        NOTE! All the services mentioned below may require running Consul agent to build Docker image properly (see <a href="#to-boot-in-dev-mode">previous section</a>):<br>
+        <code>$ consul agent -node=learnmicro -dev</code></li>
+    <li>Build Docker image for the multiplicator service from within its root folder:<br>
+        <code>$ docker build -t multiplicator:\VERSION\</code><br>
+        NOTE! Version should be provided as #.#.# (e.g. 1.0.0).<br>
+        If changed, need to update also in Docker Compose file - see <a href='https://github.com/olegyev/learn-microservices-multiplicator-docker/blob/master/docker/docker-compose.yml'>here</a>.</li>
+    <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>gamification service</a>.<br>
+    <li>Build Docker image for the gamification service from within its root folder:<br>
+        <code>$ docker build -t gamification:\VERSION\ .</code></li>
+    <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-gateway'>gateway service</a>.<br>
+    <li>Build Docker image for the gateway service from within its root folder:<br>
+        <code>$ docker build -t gateway:\VERSION\ .</code></li>
+    <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-logs'>logging service</a>.<br>
+    <li>Build Docker image for the logging service from within its root folder:<br>
+        <code>$ docker build -t logs:\VERSION\ .</code></li>
+    <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>frontend service</a>.<br>
+    <li>Build Docker image for the frontend service from within its root folder:<br>
+        <code>$ docker build -t challenges-frontend:\VERSION\ .</code></li>
+    <li>Run the complete system using Docker Compose from within the <a href='https://github.com/olegyev/learn-microservices-multiplicator-docker/tree/master/docker'>dockerization folder</a>:<br>
+        <code>$ docker-compose up</code></li>
+    <li>To stop the whole application and completely remove the containers, use the following command from a different terminal:<br>
+        <code>$ docker-compose down -v</code></li>
 </ol>
