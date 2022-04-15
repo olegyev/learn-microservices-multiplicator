@@ -74,7 +74,8 @@ Results and leaderboard are displayed.
     <li>Build Docker image for the multiplicator service from within its root folder:<br>
         <code>$ docker build -t multiplicator:\VERSION\</code><br>
         NOTE! Version should be provided as #.#.# (e.g. 1.0.0).<br>
-        If changed, need to update also in Docker Compose file - see <a href='https://github.com/olegyev/learn-microservices-multiplicator-docker/blob/master/docker/docker-compose.yml'>here</a>.</li>
+        If changed, need to update also in Docker Compose file - see <a href='https://github.com/olegyev/learn-microservices-multiplicator-docker/blob/master/docker/docker-compose.yml'>here</a>.<br>
+        NOTE! If project's version was changed in POM.xml, need also to edit Dockerfile's COPY command.</li>
     <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>gamification service</a>.<br>
     <li>Build Docker image for the gamification service from within its root folder:<br>
         <code>$ docker build -t gamification:\VERSION\ .</code></li>
@@ -91,4 +92,6 @@ Results and leaderboard are displayed.
         <code>$ docker-compose up</code></li>
     <li>To stop the whole application and completely remove the containers, use the following command from a different terminal:<br>
         <code>$ docker-compose down -v</code></li>
+    <li>To start additional service's instances, use the following command:<br>
+        <code>$ docker-compose up --scale \IMAGE_NAME\=\INSTANCES_ AMOUNT\</code></li>
 </ol>
