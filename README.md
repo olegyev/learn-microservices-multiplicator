@@ -75,7 +75,7 @@ Results and leaderboard are displayed.
         <code>$ docker build -t multiplicator:\VERSION\</code><br>
         NOTE! Version should be provided as #.#.# (e.g. 1.0.0).<br>
         If changed, need to update also in Docker Compose file - see <a href='https://github.com/olegyev/learn-microservices-multiplicator-docker/blob/master/docker/docker-compose.yml'>here</a>.<br>
-        NOTE! If project's version was changed in POM.xml, need also to edit Dockerfile's COPY command.</li>
+        NOTE! If project's version tag is changed in POM.xml, need also to edit Dockerfile's COPY command.</li>
     <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-gamification'>gamification service</a>.<br>
     <li>Build Docker image for the gamification service from within its root folder:<br>
         <code>$ docker build -t gamification:\VERSION\ .</code></li>
@@ -88,6 +88,8 @@ Results and leaderboard are displayed.
     <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>frontend service</a>.<br>
     <li>Build Docker image for the frontend service from within its root folder:<br>
         <code>$ docker build -t challenges-frontend:\VERSION\ .</code></li>
+    <li>Build Docker image for the <a href="https://github.com/olegyev/learn-microservices-multiplicator-docker/tree/master/docker/consul">Consul importer service</a> (serves only to import initial configurations by the Consul, exits immediately after completing this task):<br>
+        <code>$ docker build -t consul-importer:\VERSION\ .</code></li>
     <li>Run the complete system using Docker Compose from within the <a href='https://github.com/olegyev/learn-microservices-multiplicator-docker/tree/master/docker'>dockerization folder</a>:<br>
         <code>$ docker-compose up</code></li>
     <li>To stop the whole application and completely remove the containers, use the following command from a different terminal:<br>
