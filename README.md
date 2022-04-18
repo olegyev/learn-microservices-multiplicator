@@ -23,7 +23,7 @@ Results and leaderboard are displayed.
   <li>Java 14</li>
   <li>React.js</li>
   <li>Spring Boot 2</li>
-  <li>Spring Cloud (Gateway, Consul, Sleuth)</li>
+  <li>Spring Cloud (Gateway, Consul, Load Balancer, Sleuth)</li>
   <li>Lombok</li>
   <li>Logback</li>
   <li>MongoDB</li>
