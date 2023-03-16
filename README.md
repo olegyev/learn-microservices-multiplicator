@@ -85,8 +85,7 @@ Results and leaderboard are displayed.
     <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-logs'>logging service</a>.<br>
     <li>Build Docker image for the logging service from within its root folder:<br>
         <code>$ docker build -t logs:\VERSION\ .</code></li>
-    <li>Prepare JAR from within the root folder of the <a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>frontend service</a>.<br>
-    <li>Build Docker image for the frontend service from within its root folder:<br>
+    <li>Build Docker image for the <a href='https://github.com/olegyev/learn-microservices-multiplicator-frontend'>frontend service</a> from within its root folder:<br>
         <code>$ docker build -t challenges-frontend:\VERSION\ .</code></li>
     <li>Build Docker image for the <a href="https://github.com/olegyev/learn-microservices-multiplicator-docker/tree/master/docker/consul">Consul importer service</a> (serves only to import initial configurations by the Consul, exits immediately after completing this task):<br>
         <code>$ docker build -t consul-importer:\VERSION\ .</code></li>
@@ -95,5 +94,5 @@ Results and leaderboard are displayed.
     <li>To stop the whole application and completely remove the containers, use the following command from a different terminal:<br>
         <code>$ docker-compose down -v</code></li>
     <li>To start additional service's instances, use the following command:<br>
-        <code>$ docker-compose up --scale \IMAGE_NAME\=\INSTANCES_ AMOUNT\</code></li>
+        <code>$ docker-compose up --scale \IMAGE_NAME\=\INSTANCES_AMOUNT\</code></li>
 </ol>
